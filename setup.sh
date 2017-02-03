@@ -5,4 +5,5 @@ vim +PluginInstall +qall
 mv .vimrc ..
 mv .bashrc ..
 cd ..
+source .bashrc
 rm -rf setup
