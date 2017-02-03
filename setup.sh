@@ -4,6 +4,7 @@ vim +PluginInstall +qall
 
 mv .vimrc ~/
 mv .bashrc ~/
+mv .tmux.conf ~/
 source ~/.bashrc
 cd ..
 rm -rf setup
