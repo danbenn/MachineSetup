@@ -2,8 +2,8 @@
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 
-mv .vimrc ..
-mv .bashrc ..
+mv .vimrc ~/
+mv .bashrc ~/
+source ~/.bashrc
 cd ..
-source .bashrc
 rm -rf setup
