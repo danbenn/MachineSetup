@@ -37,6 +37,7 @@ alias pi="ssh clinc-user@raspberrypi"
 alias pnc="ssh eric@pnc.clinc.ai"
 alias launch-finie="CLINC_PATH=$CLINC_PATH LUCIDA_HOSTNAME=dozer.clinc.ai docker-compose up"
 alias build-launch-finie="make docker;docker-flush-all;launch-finie"
+alias get-setup="git clone https://github.com/euriostigue/setup.git"
 
 case "$TERM" in
     xterm-color) color_prompt=yes;;
