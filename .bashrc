@@ -1,3 +1,9 @@
+export PYTHONPATH=$PATH:~/lucida-clinc:~/lucida-clinc/uservices
+#export PYTHONPATH=$PATH:~/persistent-storage:~/persistent-storage/clincapi
+export CLINC_PATH=~/lucida-clinc
+export LUCIDA_HOSTNAME=dozer.clinc.ai
+
+export UNDER_PROFILING=1
 export TERM=xterm-256color
 export CLICOLOR=1
 color_prompt=yes
@@ -13,8 +19,24 @@ function docker-flush-all(){
     fi
 }
 
+function findstring(){
+    grep -r --include="*.$1" $2 .
+}
+
+function findpy(){
+    grep -r --include="*.py" $1 .
+}
+
+function findfile(){
+    find . -name $1
+}
+
+alias py="python"
 alias zeus="ssh eric@zeus.clinc.ai"
-alias launch-finie="docker-flush-all;CLINC_PATH=/home/eric/lucida-clinc LUCIDA_HOSTNAME=romulus.clinc.ai docker-compose up"
+alias pi="ssh clinc-user@raspberrypi"
+alias pnc="ssh eric@pnc.clinc.ai"
+alias launch-finie="CLINC_PATH=$CLINC_PATH LUCIDA_HOSTNAME=dozer.clinc.ai docker-compose up"
+alias build-launch-finie="make docker;docker-flush-all;launch-finie"
 
 case "$TERM" in
     xterm-color) color_prompt=yes;;
@@ -37,7 +59,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[00;34m\]\u@\h - [\d \@] - [\w]\[\033[00m\]\n\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -63,3 +85,4 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+

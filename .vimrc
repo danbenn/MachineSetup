@@ -16,8 +16,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
-"Plugin 'scrooloose/syntastic'
-
+Plugin 'scrooloose/syntastic'
+Plugin 'ntpeters/vim-better-whitespace'
 
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -55,7 +55,7 @@ set cursorline
 set undolevels=300
 
 " Turn off the fucking recording key that is absolutely useless
-nnoremap q <nop>
+"nnoremap q <nop>
 
 " jj to escape insert mode
 inoremap jj <Esc>
@@ -110,14 +110,21 @@ let g:solarized_termcolors=256
 
 
 " Syntastic settings
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes':[],'passive_filetypes': [] }
+nnoremap <C-c> :SyntasticCheck<CR> 
+
+
+let g:syntastic_filetype_map = {'json': 'javascript'}
+let g:syntastic_javascript_checkers=['']
+let g:syntastic_python_checkers=['pylint']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Window navigation
@@ -176,3 +183,9 @@ set ttymouse=xterm2
 
 
 set t_Co=256
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Syntax Highlighting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+
