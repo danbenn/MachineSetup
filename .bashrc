@@ -1,44 +1,19 @@
 export PYTHONPATH=$PATH:~/lucida-clinc:~/lucida-clinc/uservices
-#export PYTHONPATH=$PATH:~/persistent-storage:~/persistent-storage/clincapi
 export CLINC_PATH=~/lucida-clinc
 export LUCIDA_HOSTNAME=dozer.clinc.ai
 
-export UNDER_PROFILING=1
 export TERM=xterm-256color
 export CLICOLOR=1
-color_prompt=yes
-
-function docker-flush-all(){
-    dockerlist=$(docker ps -a -q )
-    if [ "${dockerlist}" != "" ]; then
-        for d in ${dockerlist}; do
-            echo "***** ${d}"
-            docker stop ${d} 2>&1 > /dev/null
-            docker rm ${d} 2>&1 > /dev/null
-        done
-    fi
-}
-
-function findstring(){
-    grep -r --include="*.$1" $2 .
-}
-
-function findpy(){
-    grep -r --include="*.py" $1 .
-}
-
-function findfile(){
-    find . -name $1
-}
 
 alias py="python"
 alias zeus="ssh eric@zeus.clinc.ai"
 alias pi="ssh clinc-user@raspberrypi"
 alias pnc="ssh eric@pnc.clinc.ai"
-alias launch-finie="CLINC_PATH=$CLINC_PATH LUCIDA_HOSTNAME=dozer.clinc.ai docker-compose up"
+alias launch-finie="CLINC_PATH=$CLINC_PATH LUCIDA_HOSTNAME=$LUCIDA_HOSTNAME docker-compose up"
 alias build-launch-finie="make docker;docker-flush-all;launch-finie"
 alias get-setup="git clone https://github.com/euriostigue/setup.git"
 
+color_prompt=yes
 case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
@@ -86,4 +61,28 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+
+
+function docker-flush-all(){
+    dockerlist=$(docker ps -a -q )
+    if [ "${dockerlist}" != "" ]; then
+        for d in ${dockerlist}; do
+            echo "***** ${d}"
+            docker stop ${d} 2>&1 > /dev/null
+            docker rm ${d} 2>&1 > /dev/null
+        done
+    fi
+}
+
+function findstring(){
+    grep -r --include="*.$1" $2 .
+}
+
+function findpy(){
+    grep -r --include="*.py" $1 .
+}
+
+function findfile(){
+    find . -name $1
+}
 
