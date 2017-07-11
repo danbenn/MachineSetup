@@ -1,6 +1,7 @@
 export PYTHONPATH=$PATH:~/lucida-clinc:~/lucida-clinc/uservices
 export CLINC_PATH=~/lucida-clinc
-export LUCIDA_HOSTNAME=dozer.clinc.ai
+export LUCIDA_HOSTNAME=$(hostname).clinc.ai
+export DEPLOYMENT_ENVIRONMENT=test
 
 export TERM=xterm-256color
 export CLICOLOR=1
@@ -86,3 +87,6 @@ function findfile(){
     find . -name $1
 }
 
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

@@ -69,6 +69,7 @@ nnoremap <C-x> :x<cr>
 set scrolljump=5
 set scrolloff=3
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tab Spacing
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -119,7 +120,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes':[],'passive_filetypes': [] }
-nnoremap <C-c> :SyntasticCheck<CR> 
+nnoremap <C-c> :SyntasticCheck<CR>
 
 
 let g:syntastic_filetype_map = {'json': 'javascript'}
@@ -145,7 +146,7 @@ nnoremap <C-i> :bn<cr>:bd#<cr>
 set whichwrap+=<,>,h,l,[,]
 
 "Folding stuff
-au BufNewFile,BufRead *.py,*.json set ft=python sw=4
+au BufNewFile,BufRead *.py,*.json set foldmethod=indent
 au FileType cpp set foldmethod=syntax
 au FileType c set foldmethod=syntax
 map <space> za
@@ -168,7 +169,7 @@ autocmd! bufwritepost .vimrc source ~/.vimrc
 "Reload files after vimrc has been edited
 augroup myvimrc
     au!
-    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC| if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
 
@@ -189,3 +190,12 @@ set t_Co=256
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Max Length check
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set the maximal line length to 80 characters
+function ShowLongLine()
+match ErrorMsg '\%81v.\+'
+endfunction
+
+command R call ShowLongLine()
