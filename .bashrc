@@ -75,6 +75,10 @@ function docker-flush-all(){
     fi
 }
 
+function docker-clean(){
+    docker rmi $(docker images --quiet --filter "dangling=true")
+}
+
 function findstring(){
     grep -r --include="*.$1" $2 .
 }
