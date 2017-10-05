@@ -13,6 +13,9 @@ alias pnc="ssh eric@pnc.clinc.ai"
 alias launch-finie="CLINC_PATH=$CLINC_PATH LUCIDA_HOSTNAME=$LUCIDA_HOSTNAME docker-compose up"
 alias build-launch-finie="make docker;docker-flush-all;launch-finie"
 alias get-setup="git clone https://github.com/euriostigue/setup.git"
+alias responses="grep -c "fields" $CLINC_PATH/clincapi/finie/fixtures/response_template_*.json"
+alias check_uuids="grep -h \"\"id\"\" $CLINC_PATH/clincapi/finie/fixtures/response_template_* | sort | uniq --count --repeated"
+alias bash_web="docker exec -it lucidaclinc_static-web-content_1 /bin/bash"
 
 color_prompt=yes
 case "$TERM" in
@@ -92,5 +95,6 @@ function findfile(){
 }
 
 
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$HOME/.rvm/bin:$HOME/phhrb/bin:$HOME/ruby/bin"
