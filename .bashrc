@@ -14,7 +14,6 @@ alias launch-finie="CLINC_PATH=$CLINC_PATH LUCIDA_HOSTNAME=$LUCIDA_HOSTNAME dock
 alias build-launch-finie="make docker;docker-flush-all;launch-finie"
 alias get-setup="git clone https://github.com/euriostigue/setup.git"
 alias responses="grep -c "fields" $CLINC_PATH/clincapi/finie/fixtures/response_template_*.json"
-alias check_uuids="grep -h \"\"id\"\" $CLINC_PATH/clincapi/finie/fixtures/response_template_* | sort | uniq --count --repeated"
 alias bash_web="docker exec -it lucidaclinc_static-web-content_1 /bin/bash"
 
 color_prompt=yes
@@ -92,6 +91,17 @@ function findpy(){
 
 function findfile(){
     find . -name $1
+}
+
+function check_uuids(){
+    grep -h "id" $CLINC_PATH/clincapi/finie/fixtures/response_template_* | sort | uniq --count --repeated
+}
+
+function prod-certs(){
+    docker run -it --rm -p 443:443 -p 80:80 --name letsencrypt \
+        -v "/etc/letsencrypt:/etc/letsencrypt"  \
+        -v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
+        quay.io/letsencrypt/letsencrypt:latest auth
 }
 
 
