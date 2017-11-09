@@ -15,6 +15,7 @@ alias build-launch-finie="make docker;docker-flush-all;launch-finie"
 alias get-setup="git clone https://github.com/euriostigue/setup.git"
 alias responses="grep -c "fields" $CLINC_PATH/clincapi/finie/fixtures/response_template_*.json"
 alias bash_web="docker exec -it lucidaclinc_static-web-content_1 /bin/bash"
+alias docker_postgres="docker run --name test-postgres -e POSTGRES_USER=eric -e POSTGRES_PASSWORD=clincdev -p 5432:5432 -d postgres:9.6.5"
 
 color_prompt=yes
 case "$TERM" in
@@ -82,11 +83,11 @@ function docker-clean(){
 }
 
 function findstring(){
-    grep -r --include="*.$1" $2 .
+    grep -i -r --include="*.$1" $2 .
 }
 
 function findpy(){
-    grep -r --include="*.py" $1 .
+    grep -i -r --include="*.py" $1 .
 }
 
 function findfile(){
