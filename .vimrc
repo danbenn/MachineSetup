@@ -18,6 +18,9 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/syntastic'
 Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'kburdett/vim-nuuid'
+Plugin 'tpope/vim-fugitive'
+Plugin 'kien/ctrlp.vim'
 
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -91,7 +94,7 @@ set ic
 " Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ctrl+n to toggle NERDTree
-map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle %<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "let g:NERDTreeDirArrowExpandable = '>'
 "let g:NERDTreeDirArrowCollapsible = '>'
@@ -108,11 +111,14 @@ set background=dark
 colorscheme solarized
 let g:solarized_termcolors=256
 
-
+" Ctrl P
+let g:ctrlp_map = '<c-f>'
+let g:ctrlp_cmd = 'CtrlP'
 
 " Syntastic settings
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%{fugitive#statusline()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
@@ -189,6 +195,7 @@ set t_Co=256
 " Syntax Highlighting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Max Length check
