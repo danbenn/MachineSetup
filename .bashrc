@@ -1,7 +1,6 @@
 export PYTHONPATH=$PATH:~/lucida-clinc:~/lucida-clinc/uservices
 export CLINC_PATH=~/lucida-clinc
 export LUCIDA_HOSTNAME=$(hostname).clinc.ai
-export DEPLOYMENT_ENVIRONMENT=test
 
 export TERM=xterm-256color
 export CLICOLOR=1
@@ -88,6 +87,10 @@ function findstring(){
 
 function findpy(){
     grep -i -r --include="*.py" $1 .
+}
+
+function delete_file_types(){
+    sudo find . -name "*.$1" -type f -delete
 }
 
 function findfile(){
