@@ -5,7 +5,8 @@ export LUCIDA_HOSTNAME=$(hostname).clinc.ai
 export TERM=xterm-256color
 export CLICOLOR=1
 
-alias py="python"
+alias python="python3"
+alias py="python3"
 alias zeus="ssh eric@zeus.clinc.ai"
 alias pi="ssh clinc-user@raspberrypi"
 alias pnc="ssh eric@pnc.clinc.ai"
@@ -13,8 +14,11 @@ alias launch-finie="CLINC_PATH=$CLINC_PATH LUCIDA_HOSTNAME=$LUCIDA_HOSTNAME dock
 alias build-launch-finie="make docker;docker-flush-all;launch-finie"
 alias get-setup="git clone https://github.com/euriostigue/setup.git"
 alias responses="grep -c "fields" $CLINC_PATH/clincapi/finie/fixtures/response_template_*.json"
-alias bash_web="docker exec -it lucidaclinc_static-web-content_1 /bin/bash"
+alias bash_clinc-api="docker exec -it lucidaclinc_clinc-api-server_1 /bin/bash"
+alias bash_admin-console="docker exec -it lucidaclinc_admin-console-server_1 /bin/bash"
 alias docker_postgres="docker run --name test-postgres -e POSTGRES_USER=eric -e POSTGRES_PASSWORD=clincdev -p 5432:5432 -d postgres:9.6.5"
+alias gca="git commit --amend --no-edit"
+alias connect_mysql='docker exec -it lucidaclinc_static-web-content_1 mysql --user=clincdev --password=yesiamtherealclincdev --host=mysql-server --port=3306 --database=finie_db'
 
 color_prompt=yes
 case "$TERM" in
@@ -79,10 +83,11 @@ function docker-flush-all(){
 
 function docker-clean(){
     docker rmi $(docker images --quiet --filter "dangling=true")
+    docker volume rm $(docker volume ls --quiet -f dangling=true)
 }
 
 function findstring(){
-    grep -i -r --include="*.$1" $2 .
+    grep -i -r --include="*.$1" $2 . -C 5
 }
 
 function findpy(){
