@@ -1,3 +1,6 @@
+# Manually install solarized color theme
+mv solarized.vim ~/.vim/colors/
+
 # Install vundle before loading new vimrc
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
