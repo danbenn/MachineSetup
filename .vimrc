@@ -133,6 +133,15 @@ let g:syntastic_filetype_map = {'json': 'javascript'}
 let g:syntastic_javascript_checkers=['']
 let g:syntastic_python_checkers=['pylint']
 
+" Strip all trailing whitespace on save
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Window navigation
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -186,8 +195,6 @@ augroup END
 set ttyfast
 " Configure vim for mouse input
 set mouse=a
-set ttymouse=xterm2
-
 
 set t_Co=256
 
