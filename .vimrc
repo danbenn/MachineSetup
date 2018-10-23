@@ -1,3 +1,5 @@
+execute pathogen#infect()
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -72,6 +74,8 @@ nnoremap <C-x> :x<cr>
 set scrolljump=5
 set scrolloff=3
 
+" Set 80 character line length marker
+set colorcolumn=80
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tab Spacing
@@ -115,6 +119,9 @@ let g:solarized_termcolors=256
 let g:ctrlp_map = '<c-f>'
 let g:ctrlp_cmd = 'CtrlP'
 
+" Automatically use system clipboard for copy and paste
+set clipboard=unnamedplus
+
 " Syntastic settings
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -157,8 +164,16 @@ nnoremap <C-j> :bn<cr>
 nnoremap <C-k> :bp<cr>
 nnoremap <C-i> :bn<cr>:bd#<cr>
 
+" Invoke ctrl p
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
 "Cursor wrapping, which wraps arrow keys
 set whichwrap+=<,>,h,l,[,]
+
+" Delete without yanking
+nnoremap d "_d
+xnoremap d "_d
 
 "Folding stuff
 au BufNewFile,BufRead *.py,*.json set foldmethod=indent

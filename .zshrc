@@ -98,3 +98,4 @@ source $HOME/.aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export HISTTIMEFORMAT="%d/%m/%y %T "

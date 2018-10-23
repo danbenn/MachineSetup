@@ -8,7 +8,7 @@ alias gf='git fetch --all --prune'
 alias gft='git fetch --all --prune --tags'
 alias gfv='git fetch --all --prune --verbose'
 alias gftv='git fetch --all --prune --tags --verbose'
-alias gus='git reset HEAD'
+alias grh='git reset HEAD'
 alias gpristine='git reset --hard && git clean -dfx'
 alias gclean='git clean -fd'
 alias gm="git merge"
@@ -24,22 +24,25 @@ alias glum='git pull upstream master'
 alias gpr='git pull --rebase'
 alias gpp='git pull && git push'
 alias gup='git fetch && git rebase'
+alias grb='git rebase'
+alias grbm='git rebase master'
 alias gp='git push'
 alias gpo='git push origin'
-alias gpu='git push --set-upstream'
-alias gpuo='git push --set-upstream origin'
+alias gpu='git pull'
+alias gpuo='git pull origin'
+alias gpuom='git pull origin master'
 alias gpom='git push origin master'
 alias gr='git reset'
 alias grv='git remote -v'
 alias gra='git remote add'
 alias gd='git diff'
-alias gdv='git diff -w "$@" | vim -R -'
+alias gds='git diff --staged'
 alias gc='git commit'
 alias gca='git commit -v -a'
 alias gcm='git commit -v -m'
 alias gcam="git commit -v -am"
 alias gci='git commit --interactive'
-alias gb='git branch'
+alias gb="git for-each-ref --count=5 --sort=-committerdate refs/heads/ --format='%(refname:short)'"
 alias gba='git branch -a'
 alias gbt='git branch --track'
 alias gbm='git branch -m'
@@ -48,7 +51,8 @@ alias gbD='git branch -D'
 alias gcount='git shortlog -sn'
 alias gcp='git cherry-pick'
 alias gco='git checkout'
-alias gcom='git checkout master'
+alias gcop='git checkout -'
+alias gcom='git checkout master && git pull origin master'
 alias gcb='git checkout -b'
 alias gcob='git checkout -b'
 alias gct='git checkout --track'
@@ -74,6 +78,13 @@ alias gcsam="git commit -S -am"
 alias gstd="git stash drop"
 alias gstl="git stash list"
 alias gh='cd "$(git rev-parse --show-toplevel)"'
+alias rebase='git checkout master && git pull origin master && git checkout @{-1} && git rebase master'
+
+alias logs='docker-compose logs -f'
+alias up='docker-compose up -d'
+alias down='docker rm -f $(docker ps -aq)'
+alias ps='docker ps'
+alias md='make docker'
 
 # helper function to print out barclays credentials
 function barclays_creds() {
@@ -92,7 +103,7 @@ function docker-flush() {
 }
 
 # Full text, recursive search in current directory
-alias search='grep -rni . -e '
+alias search='grep -rni --exclude-dir=node_modules --exclude-dir=aiutils'
 
 # build only the web container
 alias build-web='$CLINC_PATH/scripts/build_one_docker.sh $CLINC_PATH/web/Dockerfile dev'
@@ -109,8 +120,7 @@ alias watch-js="docker exec -it lucidaclinc_admin-console-server_1 bash -c 'cd a
 # run spotlight mocha tests
 alias mocha_test='docker exec lucidaclinc_clinc-api-server_1 adminconsole/node_modules/mocha/bin/mocha adminconsole/tests'
 
-# run django tests
-alias django_test='docker exec -it lucidaclinc_clinc-api-server_1 ../clincapi/manage.py test --keepdb --verbosity 3'
+alias django_test='docker exec -it lucidaclinc_clinc-api-server_1 ./clincapi/manage.py test --keepdb --verbosity 3'
 
 # get a mysql shell
 alias mysql='docker exec -it lucidaclinc_mysql-server_1 mysql --user=clincdev --password=yesiamtherealclincdev --port=3306 finie_db'
@@ -122,7 +132,7 @@ alias jslint='docker exec lucidaclinc_clinc-api-server_1 ../scripts/lint_js.sh'
 alias pylint='docker exec lucidaclinc_clinc-api-server_1 ../scripts/lint_py.sh'
 
 # touch wsgi in web container
-alias wsgi='docker exec lucidaclinc_clinc-api-server_1 touch ./../clincapi/common/wsgi.py'
+alias wsgi='docker exec lucidaclinc_clinc-api-server_1 touch ./clincapi/common/wsgi.py'
 
 # manage script in web container
 alias manage='docker exec -it lucidaclinc_clinc-api-server_1 ../clincapi/manage.py'
@@ -131,10 +141,10 @@ alias manage='docker exec -it lucidaclinc_clinc-api-server_1 ../clincapi/manage.
 alias pygrep='find . -name "*.py" | xargs grep -rn'
 
 # follow the django logs
-alias django-logs='tail -f /var/log/lucida/apache2/error.log'
+alias django-logs='tail -n 250 /var/log/lucida/logdata/apache_error.log -f'
 
 # run vue unit tests in web container
-alias vue-test='docker exec lucidaclinc_clinc-api-server_1 npm run vue-unit --prefix ../web/adminconsole'
+alias vue-test='docker exec lucidaclinc_clinc-api-server_1 npm run vue-unit'
 
 # make clean run of docker
 alias docker-up='make docker && docker-compose up'
